@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <ul class="list-group">
-    <li class="list-group-item" v-for="car in cars" :key="cars.id">
-      <p>{{ car.model }}</p>
+    <li class="list-group-item">
+      <p>{{ data }}</p>
+      <p>test</p>
     </li>
     </ul>
   </div>
@@ -12,18 +13,27 @@
 import axios from 'axios';
 
 export default {
-  el: '#app',
-  data(){
+  name: 'Cars',
+  data() {
     return {
-      cars: {}
-    }
+      data: '',
+    };
   },
-
+  methods: {
+    getCars() {
+      const path = 'http://localhost:5000/api/cars';
+      axios.get(path)
+        .then((res) => {
+          this.data = res.data;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        });
+    },
+  },
   created() {
-    axios.get('http://127.0.0.1:5000/api/cars')
-    .then( response => this.cars = response.data)
-    .catch(error => console.log(error))
-  }
-
-}
+    this.getCars();
+  },
+};
 </script>

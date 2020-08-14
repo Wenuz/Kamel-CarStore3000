@@ -7,7 +7,7 @@
 import Cars from '@/components/Cars.vue';
 
 export default {
-  name: 'Cars',
+  name: 'Car',
   components: {
     Cars,
   },
